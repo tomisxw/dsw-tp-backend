@@ -1,0 +1,44 @@
+### findAll
+GET http://localhost:3000/api/clientes
+
+### findOne
+GET http://localhost:3000/api/clientes/11111111
+
+### add
+POST http://localhost:3000/api/clientes
+Content-Type: application/json
+
+{
+    "dni": "22222222",
+    "nombre": "Roberto",
+    "apellido": "Gomez",
+    "edad": 52,
+    "email": "RobertoGomez@gmail.com",
+    "telefono": 22222222,
+    "checkin": false
+}
+
+### update PUT
+PUT http://localhost:3000/api/clientes/22222222
+Content-Type: application/json
+
+{
+    "dni": "22222222",
+    "nombre": "Roberto",
+    "apellido": "Gomez",
+    "edad": 53,
+    "email": "RobertoGomez@gmail.com",
+    "telefono": 22222222,
+    "checkin": false
+}
+
+### update PATCH
+PATCH http://localhost:3000/api/clientes/22222222
+Content-Type: application/json
+
+{
+    "email": "RobertoGomez1@gmail.com"
+}
+
+### delete
+DELETE http://localhost:3000/api/clientes/22222222
