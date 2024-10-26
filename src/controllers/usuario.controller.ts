@@ -1,6 +1,7 @@
-import {Request, Response, NextFunction} from 'express'
+import {Request, Response, NextFunction, response} from 'express'
 import { UsuarioRepository } from '../repositories/usuario.repository.js'
 import { Usuario } from '../models/usuario.entity.js'
+import { request } from 'http';
 
 const repository = new UsuarioRepository()
 
@@ -13,7 +14,8 @@ function sanitizeUsuarioInput(req: Request, res: Response, next: NextFunction) {
         rol: req.body.rol,
         dni: req.body.dni,
         telefono: req.body.telefono,
-    }
+    };
+    next();
 }
 async function findAll(req: Request, res: Response) {
     const usuarios = await repository.findAll(); 
@@ -44,4 +46,31 @@ async function add(req:Request, res:Response){
     return res.status(201).send({ message: 'Character created', data: usuario })
 }
 
-export{findAll, findOne, add, sanitizeUsuarioInput}
+async function update(req:Request, res:Response){
+    try{
+        const id = req.params.id ;
+        const usuario:Usuario = req.body.sanitizedInput ;
+
+        const usuarioActualizado = await repository.update(id, usuario);
+
+        return res.status(200).json(usuarioActualizado);
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: 'Error al actualizar el usuario' });
+    }
+    
+}
+
+async function remove(req:Request , res:Response){
+    try{
+        const id = req.params.id 
+        await repository.delete({id})
+        return res.status(200).json({message: 'Usuario borrado con exito'})
+    }catch(error){
+        console.error(error)
+        return res.status(500).json({ message: 'Error al borrar el usuario' });
+    }
+
+}
+
+export{findAll, findOne, add, sanitizeUsuarioInput, update ,remove}
