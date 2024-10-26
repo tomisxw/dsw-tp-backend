@@ -5,19 +5,19 @@ USE agencia_aeropuerto;
 -- Tabla: aeropuerto
 CREATE TABLE aeropuerto (
     id_aeropuerto INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
-    capacidad_aviones INT NOT NULL,
-    numero_terminales INT NOT NULL
+    nombre VARCHAR(100)  ,
+    capacidad_aviones INT  ,
+    numero_terminales INT  
 );
 
 -- Tabla: avion
 CREATE TABLE avion (
     id_avion INT AUTO_INCREMENT PRIMARY KEY,
-    modelo VARCHAR(60) NOT NULL,
-    capacidad_pasajeros INT NOT NULL,
-    fabricante VARCHAR(60) NOT NULL,
-    anio_fabricacion DATE NOT NULL,
-    capacidad_kg INT NOT NULL,
+    modelo VARCHAR(60) ,
+    capacidad_pasajeros INT  ,
+    fabricante VARCHAR(60)  ,
+    anio_fabricacion DATE  ,
+    capacidad_kg INT  ,
     id_aeropuerto INT,
     FOREIGN KEY (id_aeropuerto) REFERENCES aeropuerto(id_aeropuerto)
 );
@@ -25,23 +25,23 @@ CREATE TABLE avion (
 -- Tabla: usuario
 CREATE TABLE usuario (
     id_usuario INT AUTO_INCREMENT PRIMARY KEY,
-    user VARCHAR(80) NOT NULL,
-    fecha_registro DATETIME NOT NULL,
-    fecha_nacimiendo DATE NOT NULL,
-    numero_pasaporte INT NOT NULL,
-    email VARCHAR(160) NOT NULL,
-    rol VARCHAR(45) NOT NULL,
-    dni VARCHAR(20) NOT NULL,
-    telefono INT NOT NULL
+    usuario VARCHAR(80)  ,
+    fecha_registro DATETIME  ,
+    fecha_nacimiendo DATE  ,
+    numero_pasaporte INT  ,
+    email VARCHAR(160)  ,
+    rol VARCHAR(45)  ,
+    dni VARCHAR(20)  ,
+    telefono INT  
 );
 
 -- Tabla: vuelo
 CREATE TABLE vuelo (
     id_vuelo INT AUTO_INCREMENT PRIMARY KEY,
-    numero_vuelo INT NOT NULL,
-    fecha_salida DATETIME NOT NULL,
-    fecha_llegada DATETIME NOT NULL,
-    estado VARCHAR(50) NOT NULL,
+    numero_vuelo INT ,
+    fecha_salida DATETIME ,
+    fecha_llegada DATETIME ,
+    estado VARCHAR(50),
     id_avion INT,
     id_aeropuerto_origen INT,
     id_aeropuerto_destino INT,
@@ -50,26 +50,25 @@ CREATE TABLE vuelo (
     FOREIGN KEY (id_aeropuerto_destino) REFERENCES aeropuerto(id_aeropuerto)
 );
 
--- Tabla: reserva
-CREATE TABLE reserva (
-    id_reserva INT AUTO_INCREMENT PRIMARY KEY,
-    fecha_reserva DATETIME NOT NULL,
-    estado VARCHAR(50) NOT NULL,
-    id_usuario INT,
-    id_vuelo INT,
-    FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario),
-    FOREIGN KEY (id_vuelo) REFERENCES vuelo(id_vuelo)
+-- Tabla: mantenimiento
+CREATE TABLE mantenimiento (
+    fecha DATETIME,
+    id_avion INT ,
+    descipcion VARCHAR(200) ,
+	tipo VARCHAR(20),
+    PRIMARY KEY(`fecha`, `id_avion`),
+    FOREIGN KEY (id_avion) REFERENCES avion(id_avion)
 );
 
 -- Tabla: pasaje
 CREATE TABLE pasaje (
-    id_pasaje INT AUTO_INCREMENT PRIMARY KEY,
-    fecha_emision DATETIME NOT NULL,
-    precio DECIMAL(10, 2) NOT NULL,
-    asiento VARCHAR(10) NOT NULL,
-    clase VARCHAR(40) NOT NULL,
+    fecha_emision DATETIME  ,
+    precio DECIMAL(10, 2) ,
+    asiento VARCHAR(10) ,
+    clase VARCHAR(40) ,
     id_vuelo INT,
-    id_usuario INT,
+    id_usuario INT ,
+    PRIMARY KEY(`fecha_emision`,`id_vuelo`,`id_usuario`),
     FOREIGN KEY (id_vuelo) REFERENCES vuelo(id_vuelo),
     FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario)
 );
