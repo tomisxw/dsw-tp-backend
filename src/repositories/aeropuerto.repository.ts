@@ -35,7 +35,7 @@ export class AeropuertoRepository implements Repository<Aeropuerto>{
         const idA = Number.parseInt(id) ; 
         await pool.query(
             'UPDATE aeropuerto SET name = ?, capacidad_aviones = ?, numero_terminales=? WHERE id_aeropuerto',
-            [item.name, item.capacidad_aviones, item.numero_terminales, idA]
+            [item.nombre, item.capacidad_aviones, item.numero_terminales, idA]
         )
     return item;
     }

@@ -8,7 +8,7 @@ const repository = new AeropuertoRepository()
 function sanitizeAeropuertoInput(req: Request, res: Response, next: NextFunction) {
     req.body.sanitizedInput = {
         id_aeropuerto: req.body.id_aeropuerto,
-        name: req.body.name,
+        nombre: req.body.nombre,
         capacidad_aviones: req.body.capacidad_aviones,
         numero_terminales: req.body.numero_terminales,
     };
@@ -33,7 +33,7 @@ async function findOne(req:Request, res:Response){
 async function add(req:Request, res:Response){
     const input = req.body.sanitizedInput
     const aeropuertoInput = new Aeropuerto(
-        input.name,
+        input.nombre,
         input.capacidad_aviones,
         input.numero_terminales
     )
