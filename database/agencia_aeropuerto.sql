@@ -1,4 +1,3 @@
--- Creación de la base de datos
 CREATE DATABASE agencia_aeropuerto;
 USE agencia_aeropuerto;
 
@@ -17,9 +16,7 @@ CREATE TABLE avion (
     capacidad_pasajeros INT  ,
     fabricante VARCHAR(60)  ,
     anio_fabricacion DATE  ,
-    capacidad_kg INT  ,
-    id_aeropuerto INT,
-    FOREIGN KEY (id_aeropuerto) REFERENCES aeropuerto(id_aeropuerto)
+    capacidad_kg INT 
 );
 
 -- Tabla: usuario
@@ -27,7 +24,7 @@ CREATE TABLE usuario (
     id_usuario INT AUTO_INCREMENT PRIMARY KEY,
     usuario VARCHAR(80)  ,
     fecha_registro DATETIME  ,
-    fecha_nacimiendo DATE  ,
+    fecha_nacimiento DATE  ,
     numero_pasaporte INT  ,
     email VARCHAR(160)  ,
     rol VARCHAR(45)  ,
@@ -52,23 +49,28 @@ CREATE TABLE vuelo (
 
 -- Tabla: mantenimiento
 CREATE TABLE mantenimiento (
+    id_mantenimiento INT,
     fecha DATETIME,
     id_avion INT ,
-    descipcion VARCHAR(200) ,
-	tipo VARCHAR(20),
-    PRIMARY KEY(`fecha`, `id_avion`),
+    descripcion VARCHAR(200) ,
+tipo VARCHAR(20),
+    PRIMARY KEY(`fecha`, `id_avion`,`id_mantenimiento`),
     FOREIGN KEY (id_avion) REFERENCES avion(id_avion)
 );
 
 -- Tabla: pasaje
 CREATE TABLE pasaje (
+    id_pasaje INT , 
     fecha_emision DATETIME  ,
     precio DECIMAL(10, 2) ,
     asiento VARCHAR(10) ,
     clase VARCHAR(40) ,
     id_vuelo INT,
     id_usuario INT ,
-    PRIMARY KEY(`fecha_emision`,`id_vuelo`,`id_usuario`),
+    PRIMARY KEY(`fecha_emision`,`id_vuelo`,`id_usuario`, `id_pasaje`),
     FOREIGN KEY (id_vuelo) REFERENCES vuelo(id_vuelo),
     FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario)
 );
+
+create user if not exists dsw@'%' identified by 'dsw';
+grant select, update, insert, delete on agencia_aeropuerto.* to dsw@'%';
