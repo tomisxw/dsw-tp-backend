@@ -1,15 +1,16 @@
-import {Request, Response, NextFunction, response} from 'express'
+import {Request, Response, NextFunction} from 'express'
 import { UsuarioRepository } from '../repositories/usuario.repository.js'
 import { Usuario } from '../models/usuario.entity.js'
-import { request } from 'http';
 
 const repository = new UsuarioRepository()
 
 function sanitizeUsuarioInput(req: Request, res: Response, next: NextFunction) {
     req.body.sanitizedInput = {
         id_usuario: req.body.id_usuario,
-        user: req.body.user,
+        usuario: req.body.usuario,
         fecha_registro: req.body.fecha_registro,
+        fecha_nacimiento: req.body.fecha_nacimiento,
+        numero_pasaporte: req.body.numero_pasaporte,
         email: req.body.email,
         rol: req.body.rol,
         dni: req.body.dni,
@@ -35,8 +36,10 @@ async function findOne(req:Request, res:Response){
 async function add(req:Request, res:Response){
     const input = req.body.sanitizedInput
     const usuarioInput = new Usuario(
-        input.user,
+        input.usuario,
         input.fecha_registro,
+        input.fecha_nacimiento,
+        input.numero_pasaporte,
         input.email,
         input.rol,
         input.dni,

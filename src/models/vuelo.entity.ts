@@ -1,10 +1,12 @@
-export class Vuelo {
+export class Vuelo{
     constructor(
-        public codigo: string,
-        public aerolinea: string, 
-        public estado: string, 
-        public duracion: string, 
-        public cupo: number, 
-        public disponibilidad: boolean
+        public numero_vuelo: number,
+        public fecha_salida: Date,
+        public fecha_llegada: Date,
+        public estado: string,
+        public id_avion: number,
+        public id_aeropuerto_origen: number,
+        public id_aeropuerto_destino: number,
+        public id_vuelo?: number,
     ){}
 }

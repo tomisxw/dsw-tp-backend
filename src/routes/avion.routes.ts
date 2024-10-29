@@ -1,6 +1,5 @@
 import { Router } from "express";
 import { add, findAll, findOne, sanitizeAvionInput, update, remove} from "../controllers/avion.controller.js";
-import { Avion } from "../models/avion.entity.js";
 
 export const AvionRouter = Router()
 AvionRouter.get('/', findAll)

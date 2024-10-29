@@ -1,11 +1,9 @@
-import { Router } from "express";
-import { findAll, findOne, sanitizeVueloInput, add, update, remove } from "../controllers/vuelo.controller.js";
+import { Router } from "express"
+import { add, findAll, findOne, sanitizedVueloInput, update, remove} from "../controllers/vuelo.controller.js";
 
-export const vueloRouter = Router()
-
-vueloRouter.get('/', findAll)
-vueloRouter.get('/:id', findOne)
-vueloRouter.post('/', sanitizeVueloInput, add)
-vueloRouter.put('/:id', sanitizeVueloInput, update)
-vueloRouter.patch('/:id', sanitizeVueloInput, update)
-vueloRouter.delete('/:id', remove)
+export const VueloRouter = Router()
+VueloRouter.get('/', findAll)
+VueloRouter.get('/:id', findOne)
+VueloRouter.post('/', sanitizedVueloInput, add)
+VueloRouter.put('/:id', sanitizedVueloInput, update)
+VueloRouter.delete('/:id', remove)

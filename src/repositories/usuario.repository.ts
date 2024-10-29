@@ -35,10 +35,11 @@ export class UsuarioRepository implements Repository<Usuario>{
 
     public async update(id: string, item: Usuario): Promise<Usuario | undefined> {
         const idU = Number.parseInt(id) ;
-        const formattedDate = format(new Date(item.fecha_registro), 'yyyy-MM-dd HH:mm:ss');
+        const fecha_reg = format(new Date(item.fecha_registro), 'yyyy-MM-dd HH:mm:ss');
+        const fecha_nac = format(new Date(item.fecha_nacimiento), 'yyyy-MM-dd');
         const [result] = await pool.query<ResultSetHeader>(
-            'UPDATE usuario SET dni = ?, email = ?, fecha_registro = ?, rol = ?, telefono= ?, user = ? WHERE id_usuario = ?',
-            [item.dni , item.email, formattedDate, item.rol, item.telefono, item.user, idU]);
+            'UPDATE usuario SET dni = ?, email = ?, fecha_registro = ?, fecha_nacimiento = ?, numero_pasaporte = ?, rol = ?, telefono= ?, user = ? WHERE id_usuario = ?',
+            [item.dni , item.email, fecha_reg, fecha_nac, item.numero_pasaporte, item.rol, item.telefono, item.usuario, idU]);
         
     
 
