@@ -49,7 +49,7 @@ export class VueloRepository implements Repository<Vuelo>{
         const fecha_sali = format(new Date(item.fecha_salida), 'yyyy-MM-dd HH:mm:ss');
         const fecha_lleg = format(new Date(item.fecha_llegada), 'yyyy-MM-dd HH:mm:ss');
         const [result] = await pool.query<ResultSetHeader>(
-            'UPDATE vuelo SET id_vuelo = ?, numero_vuelo = ?, fecha_salida = ?, fecha_llegada = ?, estado = ?, id_avion = ?, id_aeropuerto_origen= ?, id_aeropuerto_destino = ? WHERE id_vuelo = ?',
+            'UPDATE vuelo SET  numero_vuelo = ?, fecha_salida = ?, fecha_llegada = ?, estado = ?, id_avion = ?, id_aeropuerto_origen= ?, id_aeropuerto_destino = ? WHERE id_vuelo = ?',
             [item.numero_vuelo , fecha_sali, fecha_lleg, item.estado, item.id_avion, item.id_aeropuerto_origen, item.id_aeropuerto_destino, idV]);
         if (result.affectedRows === 0) {
             throw new Error('No se pudo actualizar el vuelo, ID no encontrado.');

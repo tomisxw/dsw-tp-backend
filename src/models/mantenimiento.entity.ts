@@ -1,9 +1,9 @@
 export class Mantenimiento {
     constructor(
-        public descripcion: string,
+        public id_mantenimiento: number,
         public fecha: Date,
         public id_avion: number,
+        public descripcion: string,
         public tipo: string,
-        public id_mantenimiento?: number,
     ) {}
 }

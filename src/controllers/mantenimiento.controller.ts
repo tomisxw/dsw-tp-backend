@@ -7,9 +7,9 @@ const repository = new MantenimientoRepository();
 function sanitizeMantenimientoInput(req: Request, res: Response, next: NextFunction) {
     req.body.sanitizedInput = {
         id_mantenimiento: req.body.id_mantenimiento,
-        descripcion: req.body.descripcion,
         fecha: req.body.fecha,
         id_avion: req.body.id_avion,
+        descripcion: req.body.descripcion,
         tipo: req.body.tipo
     };
     next();
@@ -33,9 +33,9 @@ async function add(req: Request, res: Response) {
     const input = req.body.sanitizedInput;
     const mantenimientoInput = new Mantenimiento(
         input.id_mantenimiento,
-        input.descripcion,
         input.fecha,
         input.id_avion,
+        input.descripcion,
         input.tipo
     );
     const mantenimiento = await repository.add(mantenimientoInput);

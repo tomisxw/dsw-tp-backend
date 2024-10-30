@@ -21,9 +21,8 @@ export class MantenimientoRepository implements RepositoryMantenimiento<Mantenim
     }
 
     public async add(mantenimientoInput: Mantenimiento): Promise<Mantenimiento | undefined> {
-        const { id_mantenimiento, ...mantenimientoRow } = mantenimientoInput;
-        const [result] = await pool.query<ResultSetHeader>('INSERT INTO mantenimiento SET ?', [mantenimientoRow]);
-        mantenimientoInput.id_mantenimiento = result.insertId;
+        await pool.query<ResultSetHeader>('INSERT INTO mantenimiento SET ?', [mantenimientoInput]);
+    
         return mantenimientoInput;
     }
 

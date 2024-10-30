@@ -34,7 +34,7 @@ export class AeropuertoRepository implements Repository<Aeropuerto>{
     public async update(id: string, item: Aeropuerto): Promise<Aeropuerto | undefined> {
         const idA = Number.parseInt(id) ; 
         await pool.query(
-            'UPDATE aeropuerto SET name = ?, capacidad_aviones = ?, numero_terminales=? WHERE id_aeropuerto',
+            'UPDATE aeropuerto SET nombre = ?, capacidad_aviones = ?, numero_terminales=? WHERE id_aeropuerto = ?',
             [item.nombre, item.capacidad_aviones, item.numero_terminales, idA]
         )
     return item;

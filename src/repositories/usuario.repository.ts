@@ -38,7 +38,7 @@ export class UsuarioRepository implements Repository<Usuario>{
         const fecha_reg = format(new Date(item.fecha_registro), 'yyyy-MM-dd HH:mm:ss');
         const fecha_nac = format(new Date(item.fecha_nacimiento), 'yyyy-MM-dd');
         const [result] = await pool.query<ResultSetHeader>(
-            'UPDATE usuario SET dni = ?, email = ?, fecha_registro = ?, fecha_nacimiento = ?, numero_pasaporte = ?, rol = ?, telefono= ?, user = ? WHERE id_usuario = ?',
+            'UPDATE usuario SET dni = ?, email = ?, fecha_registro = ?, fecha_nacimiento = ?, numero_pasaporte = ?, rol = ?, telefono= ?, usuario = ? WHERE id_usuario = ?',
             [item.dni , item.email, fecha_reg, fecha_nac, item.numero_pasaporte, item.rol, item.telefono, item.usuario, idU]);
         
     
@@ -46,7 +46,7 @@ export class UsuarioRepository implements Repository<Usuario>{
         if (result.affectedRows === 0) {
             throw new Error('No se pudo actualizar el usuario, ID no encontrado.');
         }
-            
+    console.log(item)
     return item;
     }
 
