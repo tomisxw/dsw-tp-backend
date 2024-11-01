@@ -5,6 +5,7 @@ import { AeropuertoRouter } from './routes/aeropuerto.routes.js'
 import { VueloRouter } from './routes/vuelo.routes.js'
 import { MantenimientoRouter } from './routes/mantenimiento.routes.js';
 import cors from 'cors'
+import { PasajeRouter } from './routes/pasaje.routes.js'
 
 
 const app = express()
@@ -24,6 +25,7 @@ app.use('/api/avion', AvionRouter);
 app.use('/api/aeropuerto', AeropuertoRouter);
 app.use('/api/vuelo', VueloRouter);
 app.use('/api/mantenimiento', MantenimientoRouter);
+app.use('/api/pasaje', PasajeRouter);
 
 
 app.use((req, res) => {

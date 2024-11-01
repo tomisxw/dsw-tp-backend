@@ -20,9 +20,8 @@ export class PasajeRepository implements RepositoryPasaje<Pasaje> {
     }
 
     public async add(pasajeInput: Pasaje): Promise<Pasaje | undefined> {
-        const { id_pasaje, ...pasajeRow } = pasajeInput;
-        const [result] = await pool.query<ResultSetHeader>('INSERT INTO pasaje SET ?', [pasajeRow]);
-        pasajeInput.id_pasaje = result.insertId;
+        await pool.query<ResultSetHeader>('INSERT INTO pasaje SET ?', [pasajeInput]);
+
         return pasajeInput;
     }
 

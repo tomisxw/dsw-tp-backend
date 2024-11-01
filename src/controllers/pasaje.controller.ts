@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
-import { PasajeRepository } from '../repositories/pasaje.repository';
-import { Pasaje } from '../models/pasaje.entity';
+import { PasajeRepository } from '../repositories/pasaje.repository.js';
+import { Pasaje } from '../models/pasaje.entity.js';
 
 const repository = new PasajeRepository();
 
@@ -34,6 +34,7 @@ async function findOne(req: Request, res: Response) {
 async function add(req: Request, res: Response) {
     const input = req.body.sanitizedInput;
     const pasajeInput = new Pasaje(
+        input.id_pasaje,
         input.fecha_emision,
         input.precio,
         input.asiento,
