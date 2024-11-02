@@ -19,6 +19,11 @@ export class MantenimientoRepository implements RepositoryMantenimiento<Mantenim
         );
         return mantenimientos.length ? (mantenimientos[0] as Mantenimiento) : undefined;
     }
+    
+    public async existeAvion(id_avion: number): Promise<boolean> {
+        const [rows] = await pool.query<RowDataPacket[]>('SELECT 1 FROM avion WHERE id_avion = ?', [id_avion]);
+        return rows.length > 0;
+    }
 
     public async add(mantenimientoInput: Mantenimiento): Promise<Mantenimiento | undefined> {
         await pool.query<ResultSetHeader>('INSERT INTO mantenimiento SET ?', [mantenimientoInput]);

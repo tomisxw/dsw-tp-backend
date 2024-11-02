@@ -33,6 +33,16 @@ async function findOne(req: Request, res: Response) {
 
 async function add(req: Request, res: Response) {
     const input = req.body.sanitizedInput;
+    const vueloExists = await repository.existeVuelo(input.id_vuelo);
+    if (!vueloExists) {
+        return res.status(400).send({ message: `El vuelo con id ${input.id_vuelo} no existe.` });
+    }
+
+    const usuarioExists = await repository.existeUsuario(input.id_usuario);
+    if (!usuarioExists) {
+        return res.status(400).send({ message: `El usuario con id ${input.id_usuario} no existe.` });
+    }
+
     const pasajeInput = new Pasaje(
         input.id_pasaje,
         input.fecha_emision,
@@ -49,8 +59,20 @@ async function add(req: Request, res: Response) {
 async function update(req: Request, res: Response) {
     try {
         const { id_vuelo, fecha_emision, id_pasaje, id_usuario } = req.params;
-        const pasaje: Pasaje = req.body.sanitizedInput;
 
+        const pasaje: Pasaje = req.body.sanitizedInput;
+        
+        const vueloExists = await repository.existeVuelo(pasaje.id_vuelo);
+        if (!vueloExists) {
+            return res.status(400).send({ message: `El vuelo con id ${pasaje.id_vuelo} no existe.` });
+        }
+        
+        const usuarioExists = await repository.existeUsuario(pasaje.id_usuario);
+        if (!usuarioExists) {
+            return res.status(400).send({ message: `El usuario con id ${pasaje.id_usuario} no existe.` });
+        }
+
+        
         const pasajeActualizado = await repository.update({ id_vuelo, fecha_emision, id_pasaje, id_usuario }, pasaje);
         return res.status(200).json(pasajeActualizado);
     } catch (error) {

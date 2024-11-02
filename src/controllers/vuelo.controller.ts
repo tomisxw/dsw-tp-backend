@@ -70,6 +70,22 @@ async function update(req:Request, res:Response){
         const id = req.params.id ;
         const vuelo:Vuelo = req.body.sanitizedInput ;
 
+        // Validación de la existencia de las llaves foráneas
+        const avionExists = await repository.existeAvion(vuelo.id_avion);
+        if (!avionExists) {
+            return res.status(400).json({ message: `El avión con id ${vuelo.id_avion} no existe.` });
+        }
+
+        const aeropuertoOrigenExists = await repository.existeAeropuerto(vuelo.id_aeropuerto_origen);
+        if (!aeropuertoOrigenExists) {
+            return res.status(400).json({ message: `El aeropuerto de origen con id ${vuelo.id_aeropuerto_origen} no existe.` });
+        }
+
+        const aeropuertoDestinoExists = await repository.existeAeropuerto(vuelo.id_aeropuerto_destino);
+        if (!aeropuertoDestinoExists) {
+            return res.status(400).json({ message: `El aeropuerto de destino con id ${vuelo.id_aeropuerto_destino} no existe.` });
+        }
+
         const vueloActualizado = await repository.update(id, vuelo);
 
         return res.status(200).json(vueloActualizado);

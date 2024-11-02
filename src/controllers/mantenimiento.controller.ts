@@ -31,6 +31,10 @@ async function findOne(req: Request, res: Response) {
 
 async function add(req: Request, res: Response) {
     const input = req.body.sanitizedInput;
+    const avionExists = await repository.existeAvion(input.id_avion);
+    if (!avionExists) {
+        return res.status(400).send({ message: `El avión con id ${input.id_avion} no existe.` });
+    }
     const mantenimientoInput = new Mantenimiento(
         input.id_mantenimiento,
         input.fecha,
@@ -45,7 +49,13 @@ async function add(req: Request, res: Response) {
 async function update(req: Request, res: Response) {
     try {
         const { id_mantenimiento, fecha, id_avion } = req.params;
+
         const mantenimiento: Mantenimiento = req.body.sanitizedInput;
+
+        const avionExists = await repository.existeAvion(mantenimiento.id_avion);
+        if (!avionExists) {
+            return res.status(400).json({ message: `El avión con id ${mantenimiento.id_avion} no existe.` });
+        }
 
         const mantenimientoActualizado = await repository.update({ id_mantenimiento, fecha, id_avion }, mantenimiento);
 
