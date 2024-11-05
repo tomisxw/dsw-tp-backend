@@ -73,7 +73,7 @@ async function remove(req: Request, res: Response) {
         return res.status(200).json({ message: 'Mantenimiento borrado con éxito' });
     } catch (error) {
         console.error(error);
-        return res.status(500).json({ message: 'Error al borrar el mantenimiento' });
+        return res.status(500).json({ message: 'Error al borrar el mantenimiento, este no fue encontrado' });
     }
 }
 

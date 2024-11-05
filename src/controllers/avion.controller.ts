@@ -44,7 +44,7 @@ async function add(req:Request, res:Response){
         input.capacidad_kg
     )
     const avion = await repository.add(avionInput)
-    return res.status(201).send({ message: 'Character created', data: avion })
+    return res.status(201).send({ message: 'Avión creado', data: avion })
 }
 
 async function update(req: Request, res:Response){
@@ -69,7 +69,7 @@ async function remove(req:Request, res:Response){
 
     }catch(error){
         console.error(error)
-        return res.status(500).json({ message: 'Error al borrar el usuario' });
+        return res.status(500).json({ message: 'Error al borrar el Avión' });
     }
 }
 

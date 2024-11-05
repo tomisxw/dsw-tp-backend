@@ -38,7 +38,7 @@ async function add(req:Request, res:Response){
         input.numero_terminales
     )
     const aeropuerto = await repository.add(aeropuertoInput)
-    return res.status(201).send({ message: 'Character created', data: aeropuerto })
+    return res.status(201).send({ message: 'Aeropuerto creado', data: aeropuerto })
 }
 async function update(req:Request, res:Response){
     try{
@@ -60,7 +60,7 @@ async function remove(req:Request, res:Response){
        return res.status(200).json({message: 'Aeropuerto borrado con exito'})
     }catch(error){
         console.error(error)
-        return res.status(500).json({message:'Error al borrar el aeropuerto'})
+        return res.status(500).json({message:'Error al borrar el aeropuerto, este no fue encontrado'})
 
     }
 }

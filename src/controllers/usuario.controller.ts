@@ -46,7 +46,7 @@ async function add(req:Request, res:Response){
         input.telefono
     )
     const usuario = await repository.add(usuarioInput)
-    return res.status(201).send({ message: 'Character created', data: usuario })
+    return res.status(201).send({ message: 'Usuario creado', data: usuario })
 }
 
 async function update(req:Request, res:Response){
@@ -71,7 +71,7 @@ async function remove(req:Request , res:Response){
         return res.status(200).json({message: 'Usuario borrado con exito'})
     }catch(error){
         console.error(error)
-        return res.status(500).json({ message: 'Error al borrar el usuario' });
+        return res.status(500).json({ message: 'Error al borrar el usuario, usuario no encontrado' });
     }
 
 }
