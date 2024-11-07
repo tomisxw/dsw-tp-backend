@@ -3,7 +3,7 @@ export class Avion{
         public modelo:string,
         public capacidad_pasajeros: number,
         public fabricante:string,
-        public anio_fabricacion: Date ,
+        public anio_fabricacion: number ,
         public capacidad_kg:number ,
         public id_avion?: number 
     ){}

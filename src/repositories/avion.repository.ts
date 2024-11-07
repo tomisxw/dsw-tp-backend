@@ -24,18 +24,16 @@ export class AvionRepository implements Repository<Avion>{
 
     public async add(avionInput:Avion):Promise<Avion | undefined>{
         const {id_avion, ...avionRow} = avionInput ; 
-        const [result]  = await pool.query<ResultSetHeader>('INSERT INTO avion SET ?',
-            [avionRow])
+        const [result]  = await pool.query<ResultSetHeader>('INSERT INTO avion SET ?', [avionRow])
         avionInput.id_avion = result.insertId ; 
         return avionInput
     }
 
     public async update(id:string, item:Avion): Promise< Avion | undefined>{
         const idA = Number.parseInt(id) ; 
-        const formattedDate = format(new Date(item.anio_fabricacion), 'yyyy-MM-dd');
         await pool.query(
             'UPDATE avion SET modelo = ?, capacidad_pasajeros = ?, fabricante = ?, anio_fabricacion = ?, capacidad_kg= ? WHERE id_avion = ?',
-            [item.modelo, item.capacidad_pasajeros, item.fabricante, formattedDate, item.capacidad_kg, idA]
+            [item.modelo, item.capacidad_pasajeros, item.fabricante, item.anio_fabricacion, item.capacidad_kg, idA]
         )
     return item;
     }
