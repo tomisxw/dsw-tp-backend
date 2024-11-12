@@ -15,7 +15,7 @@ CREATE TABLE avion (
     modelo VARCHAR(60) ,
     capacidad_pasajeros INT  ,
     fabricante VARCHAR(60)  ,
-    anio_fabricacion DATE  ,
+    anio_fabricacion int  ,
     capacidad_kg INT 
 );
 
@@ -25,11 +25,11 @@ CREATE TABLE usuario (
     usuario VARCHAR(80)  ,
     fecha_registro DATETIME  ,
     fecha_nacimiento DATE  ,
-    numero_pasaporte INT  ,
+    numero_pasaporte VARCHAR(20)  ,
     email VARCHAR(160)  ,
     rol VARCHAR(45)  ,
-    dni VARCHAR(20)  ,
-    telefono INT  
+    dni INT  ,
+    telefono VARCHAR(20) 
 );
 
 -- Tabla: vuelo
@@ -53,7 +53,7 @@ CREATE TABLE mantenimiento (
     fecha DATETIME,
     id_avion INT ,
     descripcion VARCHAR(200) ,
-tipo VARCHAR(20),
+    tipo VARCHAR(20),
     PRIMARY KEY(`fecha`, `id_avion`,`id_mantenimiento`),
     FOREIGN KEY (id_avion) REFERENCES avion(id_avion)
 );

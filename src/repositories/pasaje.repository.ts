@@ -7,7 +7,7 @@ export class PasajeRepository implements RepositoryPasaje<Pasaje> {
 
 
     public async existeVuelo(id_vuelo: number): Promise<boolean> {
-        const [rows] = await pool.query<RowDataPacket[]>('SELECT 1 FROM avion WHERE id_vuelo = ?', [id_vuelo]);
+        const [rows] = await pool.query<RowDataPacket[]>('SELECT 1 FROM vuelo WHERE id_vuelo = ?', [id_vuelo]);
         return rows.length > 0;}
 
     public async existeUsuario(id_usuario: number): Promise<boolean> {
