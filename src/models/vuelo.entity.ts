@@ -1,6 +1,6 @@
 export class Vuelo{
     constructor(
-        public numero_vuelo: number,
+        public numero_vuelo: string,
         public fecha_salida: Date,
         public fecha_llegada: Date,
         public estado: string,
