@@ -41,7 +41,7 @@ export class ProvinciaRepository implements Repository<Provincia>{
 
     public async delete(item:{id:string}):Promise<Provincia | undefined>{
         const id = Number.parseInt(item.id);
-        const [result] = await pool.query<ResultSetHeader>('DELETE FROM Provincia WHERE id_provicia = ?', [id])
+        const [result] = await pool.query<ResultSetHeader>('DELETE FROM Provincia WHERE id_provincia = ?', [id])
         if (result.affectedRows === 0){
             throw new Error ('No se pudo borrar la provincia, ID no encontrado.') ;
 
