@@ -9,6 +9,8 @@ function sanitizeLocalidadInput(req: Request, res: Response, next: NextFunction)
     req.body.sanitizedInput = {
         id_localidad: req.body.id_localidad,
         nombre: req.body.nombre,
+        latitud: req.body.latitud,
+        longitud: req.body.longitud,
         id_provincia: req.body.id_provincia,
     };
     next()
@@ -32,6 +34,8 @@ async function add(req:Request, res:Response){
     const input = req.body.sanitizedInput
     const localidadInput = new Localidad(
         input.nombre,
+        input.latitud,
+        input.longitud,
         input.id_provincia
     )
     const localidad = await repository.add(localidadInput)
@@ -62,4 +66,20 @@ async function remove(req:Request, res:Response){
 }
 
 
-export{ findAll, findOne, sanitizeLocalidadInput, add, update , remove}
+async function getCoordenadas(req: Request, res: Response) {
+    try {
+        const id = req.params.id;
+        const coordinates = await repository.getCoordinates(id);
+        if (!coordinates) {
+            return res.status(404).json({ message: 'Coordenadas no encontradas para la localidad especificada' });
+        }
+        return res.json(coordinates);
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: 'Error al obtener las coordenadas', error });
+    }
+    }
+
+
+
+export{ findAll, findOne, sanitizeLocalidadInput, add, update , remove, getCoordenadas}

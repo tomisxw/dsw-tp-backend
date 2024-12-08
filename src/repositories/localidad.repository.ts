@@ -33,8 +33,8 @@ export class LocalidadRepository implements Repository<Localidad>{
     public async update(id: string, item: Localidad): Promise<Localidad | undefined> {
         const idL = Number.parseInt(id) ; 
         await pool.query(
-            'UPDATE Localidad SET nombre = ?, id_provincia = ? WHERE id_localidad = ?',
-            [item.nombre, item.id_provincia, idL]
+            'UPDATE Localidad SET nombre = ?, latitud = ?, longitud = ?, id_provincia = ? WHERE id_localidad = ?',
+            [item.nombre, item.latitud, item.longitud, item.id_provincia, idL]
         )
     return item;
     }
@@ -48,4 +48,16 @@ export class LocalidadRepository implements Repository<Localidad>{
         }
         return ;
     }
+
+    public async getCoordinates(id: string): Promise<{ longitud: number; latitud: number } | undefined> {
+        const [rows] = await pool.query<RowDataPacket[]>(
+            'SELECT longitud, latitud FROM Localidad WHERE id_localidad = ?',
+            [Number.parseInt(id)]
+        );
+        if (rows.length === 0) {
+            return undefined;
+        }
+        return rows[0] as { longitud: number; latitud: number };
+    }
+    
 }

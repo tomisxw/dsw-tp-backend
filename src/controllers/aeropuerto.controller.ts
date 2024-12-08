@@ -11,6 +11,7 @@ function sanitizeAeropuertoInput(req: Request, res: Response, next: NextFunction
         nombre: req.body.nombre,
         capacidad_aviones: req.body.capacidad_aviones,
         numero_terminales: req.body.numero_terminales,
+        id_localidad: req.body.id_localidad
     };
     next()
 }
@@ -35,7 +36,8 @@ async function add(req:Request, res:Response){
     const aeropuertoInput = new Aeropuerto(
         input.nombre,
         input.capacidad_aviones,
-        input.numero_terminales
+        input.numero_terminales,
+        input.id_localidad
     )
     const aeropuerto = await repository.add(aeropuertoInput)
     return res.status(201).send({ message: 'Aeropuerto creado', data: aeropuerto })
