@@ -22,6 +22,22 @@ async function findAll(req: Request, res: Response) {
     res.json(pasajes);
 }
 
+async function pasajesPrecio(req: Request, res: Response) {
+    const { precio } = req.params;
+
+    try {
+        const pasajes = await repository.pasajePrecio(Number(precio));
+
+        if (!pasajes || pasajes.length === 0) {
+            return res.status(404).send({ message: 'No hay pasajes por este precio máximo' }); 
+        }
+
+        res.json(pasajes);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({ message: 'Error al obtener pasajes.' });
+    }
+}
 async function findOne(req: Request, res: Response) {
     const { id_vuelo, fecha_emision, id_pasaje, id_usuario } = req.params;
     const pasaje = await repository.findOne({ id_vuelo, fecha_emision, id_pasaje, id_usuario });
@@ -92,4 +108,4 @@ async function remove(req: Request, res: Response) {
     }
 }
 
-export { findAll, findOne, add, sanitizePasajeInput, update, remove };
+export { findAll, findOne, add, sanitizePasajeInput, update, remove, pasajesPrecio };

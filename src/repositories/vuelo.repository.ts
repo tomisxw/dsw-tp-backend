@@ -12,7 +12,10 @@ export class VueloRepository implements Repository<Vuelo>{
         const [vuelos] = await pool.query('SELECT * FROM vuelo')
         return vuelos as Vuelo[]
     }
-    
+    public async vuelosDisponibles(id_aeropuerto_destino:number): Promise<Vuelo[] | undefined> {
+        const [vuelos] = await pool.query('SELECT * FROM vuelo where estado="En servicio" and id_aeropuerto_destino=?',[id_aeropuerto_destino])
+        return vuelos as Vuelo[]
+    }
     public async findOne(item: {id:string}): Promise<Vuelo| undefined>{
         const id = Number.parseInt(item.id)
         const [vuelos] = await pool.query<RowDataPacket[]>('SELECT * FROM vuelo where id_vuelo = ?', [id])

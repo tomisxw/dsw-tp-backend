@@ -6,6 +6,12 @@ import { ResultSetHeader, RowDataPacket } from "mysql2";
 export class PasajeRepository implements RepositoryPasaje<Pasaje> {
 
 
+
+    public async pasajePrecio(precio:number): Promise<Pasaje[] | undefined> { 
+    const [pasajes] = await pool.query('SELECT * FROM pasaje where precio <= ?',[precio])
+    return pasajes as Pasaje[]
+    }
+
     public async existeVuelo(id_vuelo: number): Promise<boolean> {
         const [rows] = await pool.query<RowDataPacket[]>('SELECT 1 FROM vuelo WHERE id_vuelo = ?', [id_vuelo]);
         return rows.length > 0;}

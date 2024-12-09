@@ -32,6 +32,23 @@ async function findOne(req:Request, res:Response){
     return res.json(vuelo)
 }
 
+async function findByDestino(req: Request, res: Response) {
+    const { id_aeropuerto_destino } = req.params;
+
+    try {
+        const vuelos = await repository.vuelosDisponibles(Number(id_aeropuerto_destino));
+
+        if (!vuelos || vuelos.length === 0) {
+            return res.status(404).send({ message: 'No hay vuelos disponibles para este destino.' });
+        }
+
+        res.json(vuelos);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({ message: 'Error al obtener vuelos por destino.' });
+    }
+}
+
 async function add(req:Request, res:Response){
     const input = req.body.sanitizedInput;
 
@@ -108,4 +125,4 @@ async function remove(req:Request , res:Response){
 
 }
 
-export{findAll, findOne, add, sanitizedVueloInput, update ,remove}
+export{findAll, findOne, add, sanitizedVueloInput, update ,remove, findByDestino}
