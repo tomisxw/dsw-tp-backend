@@ -6,6 +6,8 @@ import { VueloRouter } from './routes/vuelo.routes.js'
 import { MantenimientoRouter } from './routes/mantenimiento.routes.js';
 import cors from 'cors'
 import { PasajeRouter } from './routes/pasaje.routes.js'
+import { LocalidadRouter } from './routes/localidad.routes.js'
+import { ProvinciaRouter } from './routes/provincia.routes.js'
 
 
 const app = express()
@@ -23,6 +25,8 @@ app.use(express.json())
 app.use('/api/usuario', UsuarioRouter);
 app.use('/api/avion', AvionRouter);
 app.use('/api/aeropuerto', AeropuertoRouter);
+app.use('/api/localidad', LocalidadRouter);
+app.use('/api/provincia', ProvinciaRouter);
 app.use('/api/vuelo', VueloRouter);
 app.use('/api/mantenimiento', MantenimientoRouter);
 app.use('/api/pasaje', PasajeRouter);
