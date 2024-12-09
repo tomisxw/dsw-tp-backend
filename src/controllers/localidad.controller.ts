@@ -31,7 +31,12 @@ async function findOne(req:Request, res:Response){
 }
 
 async function add(req:Request, res:Response){
-    const input = req.body.sanitizedInput
+    const input = req.body.sanitizedInput;
+
+    const provinciaExists = await repository.existeProvincia(input.id_provincia);
+    if (!provinciaExists) {
+        return res.status(400).send({ message: `La provincia con id ${input.id_provincia} no existe.` });
+    }
     const localidadInput = new Localidad(
         input.nombre,
         input.latitud,
@@ -44,7 +49,13 @@ async function add(req:Request, res:Response){
 async function update(req:Request, res:Response){
     try{
         const id= req.params.id ;
-        const localidad:Localidad = req.body.sanitizedInput ; 
+        const localidad:Localidad = req.body.sanitizedInput ;
+
+        const provinciaExists = await repository.existeProvincia(localidad.id_provincia);
+        if (!provinciaExists) {
+            return res.status(400).json({ message: `La provincia con id ${localidad.id_provincia} no existe.` });
+        } 
+
         const localidadActualizada = await repository.update(id, localidad)
         return res.status(200).json(localidadActualizada);
     } catch (error){

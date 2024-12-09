@@ -6,6 +6,11 @@ import { ResultSetHeader, RowDataPacket } from "mysql2";
 
 export class LocalidadRepository implements Repository<Localidad>{
 
+    public async existeProvincia(id_provincia: number): Promise<boolean> {
+        const [rows] = await pool.query<RowDataPacket[]>('SELECT 1 FROM provincia WHERE id_provincia = ?', [id_provincia]);
+        return rows.length > 0;
+    } 
+       
     public async findAll(): Promise<Localidad[] | undefined>{
         const [localidad] = await pool.query('SELECT * FROM Localidad')
         return localidad as Localidad[]
