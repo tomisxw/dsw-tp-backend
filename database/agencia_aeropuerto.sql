@@ -19,7 +19,6 @@ CREATE TABLE usuario (
     id_usuario INT AUTO_INCREMENT PRIMARY KEY,
 	usuario VARCHAR(20)  ,
     email VARCHAR(160)  ,
-    contrasenia varchar(30) ,
     rol VARCHAR(15)  ,
     dni INT  ,
 	telefono VARCHAR(20) ,
